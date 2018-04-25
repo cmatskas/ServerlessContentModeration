@@ -7,11 +7,14 @@ namespace TextModeration
 {
     class Program
     {
+        private static string key = "<your moderation service API key>";
+        private static string region = "westeurope";
+
         static async Task Main(string[] args)
         {
             Console.WriteLine("Running analysis");
             var client = new HttpClient();
-            var moderationHelper = new ModerationHelper(client, "949379d77c9e41c6bc7332de29e44663");
+            var moderationHelper = new ModerationHelper(client, key, region);
             var result = await moderationHelper.ModerateText("Hello World");
             Console.WriteLine(result.ToString());
             Console.ReadKey();

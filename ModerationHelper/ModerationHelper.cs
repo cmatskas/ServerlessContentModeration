@@ -8,13 +8,15 @@ namespace Moderation
 {
     public class ModerationHelper
     {
-        private string key;
-        private HttpClient httpClient;
+        private static string key;
+        private static HttpClient httpClient;
+        private static string region;
 
-        public ModerationHelper(HttpClient client, string apiKey)
+        public ModerationHelper(HttpClient client, string apiKey, string serviceRegion)
         {
             key = apiKey;
             httpClient = client;
+            region = serviceRegion;
         }
         public async Task<ModerationResult> ModerateText(string textToModerate)
         {
@@ -24,7 +26,7 @@ namespace Moderation
             httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", key);
 
             queryString["classify"] = "true";
-            var uri = "https://westeurope.api.cognitive.microsoft.com/contentmoderator/moderate/v1.0/ProcessText/Screen?" + queryString;
+            var uri = $"https://{region}.api.cognitive.microsoft.com/contentmoderator/moderate/v1.0/ProcessText/Screen?{queryString}";
 
             HttpResponseMessage response;
 

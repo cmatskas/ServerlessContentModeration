@@ -25,7 +25,7 @@ namespace ModerationFunction
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             var textToModerate = (string)data?.textToModerate;
 
-            var moderationHelper = new ModerationHelper(Client, "<your content moderation api key>");
+            var moderationHelper = new ModerationHelper(Client, "<your content moderation api key>", "<moderation service region>");
             ModerationResult result = await moderationHelper.ModerateText(textToModerate);
 
             return data != null
